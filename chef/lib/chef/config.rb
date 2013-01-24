@@ -48,8 +48,6 @@ class Chef
     end
 
     def self.platform_specific_path(path)
-      #10.times { puts "* " * 40}
-      #pp caller
 
       if RUBY_PLATFORM =~ /mswin|mingw|windows/
         # turns /etc/chef/client.rb into C:/chef/client.rb
@@ -297,10 +295,10 @@ class Chef
     # Start handlers
     start_handlers []
 
-    # Checksum Cache
-    # Uses Moneta on the back-end
-    cache_type "BasicFile"
-    cache_options({ :path => platform_specific_path("/var/chef/cache/checksums"), :skip_expires => true })
+    syntax_check_cache_path nil
+
+    # Deprecated:
+    cache_options({ :path => platform_specific_path("/var/chef/cache/checksums") })
 
     # Arbitrary knife configuration data
     knife Hash.new
